@@ -21,6 +21,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.7</java.version>
 		<felix.framework.version>4.4.1</felix.framework.version>
+		<apache.scr.version>2.0.2</apache.scr.version>
 	</properties>
 
 	<modules>
@@ -57,34 +58,12 @@
 						<target>${java.version}</target>
 					</configuration>
 				</plugin>
-				<!--
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-source-plugin</artifactId>
-					<version>3.0.0</version>
-					<executions>
-						<execution>
-							<id>attach-sources</id>
-							<goals>
-								<goal>jar</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-javadoc-plugin</artifactId>
-					<version>2.10.3</version>
-					<executions>
-						<execution>
-							<id>attach-javadocs</id>
-							<goals>
-								<goal>jar</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-				-->
+				<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-source-plugin</artifactId> 
+					<version>3.0.0</version> <executions> <execution> <id>attach-sources</id> 
+					<goals> <goal>jar</goal> </goals> </execution> </executions> </plugin> <plugin> 
+					<groupId>org.apache.maven.plugins</groupId> <artifactId>maven-javadoc-plugin</artifactId> 
+					<version>2.10.3</version> <executions> <execution> <id>attach-javadocs</id> 
+					<goals> <goal>jar</goal> </goals> </execution> </executions> </plugin> -->
 				<plugin>
 					<!-- | the following instructions build a simple set of public/private 
 						classes into an OSGi bundle -->
@@ -133,7 +112,7 @@
 			</plugins>
 		</pluginManagement>
 
-	<!-- DS dependency for processing ds annotations, can't be inside pluginManagement -->
+		<!-- DS dependency for processing ds annotations, can't be inside pluginManagement -->
 		<plugins>
 			<plugin>
 				<groupId>org.apache.felix</groupId>
@@ -161,7 +140,7 @@
 		<dependency>
 			<groupId>org.apache.felix</groupId>
 			<artifactId>org.apache.felix.scr</artifactId>
-			<version>2.0.2</version>
+			<version>${apache.scr.version}</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -171,6 +150,16 @@
 			<version>1.9.12</version>
 			<scope>provided</scope>
 		</dependency>
+
+		<!-- enable to use standard OSGi annotations instead of felix annotations -->
+		<!--  
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.scr.ds-annotations</artifactId>
+			<version>1.2.8</version>
+			<scope>provided</scope>
+		</dependency>
+		-->
 
 	</dependencies>
 </project>

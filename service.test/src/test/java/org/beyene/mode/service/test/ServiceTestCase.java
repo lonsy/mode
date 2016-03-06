@@ -27,21 +27,36 @@ import org.junit.runner.RunWith;
 import org.ops4j.pax.exam.CoreOptions;
 import org.ops4j.pax.exam.Option;
 import org.ops4j.pax.exam.Configuration;
+import org.ops4j.pax.exam.ProbeBuilder;
+import org.ops4j.pax.exam.TestProbeBuilder;
 import org.ops4j.pax.exam.junit.PaxExam;
+import org.osgi.framework.Constants;
 
 import static org.ops4j.pax.exam.CoreOptions.mavenBundle;
 
 @RunWith(PaxExam.class)
 public class ServiceTestCase {
 
-    @Inject
+	@Inject
     private Service service;
     
+	@ProbeBuilder
+	public TestProbeBuilder probeConfiguration(TestProbeBuilder probe) {
+		// makes sure the generated Test-Bundle contains this import!
+		probe.setHeader(Constants.BUNDLE_SYMBOLICNAME, "org.beyene.mode.service.test.service-test-case");
+//		probe.setHeader(Constants.DYNAMICIMPORT_PACKAGE, "org.beyene.mode.service.*,org.apache.felix.service.*,org.ops4j.pax.exam.*;status=provisional");
+		probe.setHeader(Constants.DYNAMICIMPORT_PACKAGE, "*;status=provisional");
+		probe.setHeader(Constants.EXPORT_PACKAGE, "org.beyene.mode.service.test");
+		return probe;
+	}
+	
 	@Configuration
 	public Option[] config() {
 		return CoreOptions.options(
 				/* needed for ds annotations */
-				mavenBundle("org.apache.felix", "org.apache.felix.scr", "1.8.2"),
+				mavenBundle("org.apache.felix", "org.apache.felix.scr").versionAsInProject(),
+				mavenBundle("org.ops4j.pax.exam", "pax-exam-container-native").versionAsInProject(),
+				mavenBundle("org.ops4j.pax.exam", "pax-exam-junit4").versionAsInProject(),
 				mavenBundle().groupId("org.beyene.mode").artifactId("service").versionAsInProject(),
 				mavenBundle().groupId("org.beyene.mode").artifactId("service.impl").versionAsInProject(),
 				CoreOptions.junitBundles());
