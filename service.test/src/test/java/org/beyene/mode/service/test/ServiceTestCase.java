@@ -38,7 +38,7 @@ import static org.ops4j.pax.exam.CoreOptions.mavenBundle;
 public class ServiceTestCase {
 
 	@Inject
-    private Service service;
+    	private Service service;
     
 	@ProbeBuilder
 	public TestProbeBuilder probeConfiguration(TestProbeBuilder probe) {
